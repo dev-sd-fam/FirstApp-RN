@@ -1,21 +1,95 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import CommonButton from './components/common/Buttons/CommonButton';
+import { useState } from 'react';
+import FormComponent from './components/Form/FormComponent';
+import InputHandle from './components/InputHandle';
+import FlatListMap from './components/FlatListMap';
 
 export default function App() {
+  const [number, setNumber] = useState(100);
+  const [name, setName] = useState('');
+  // let number = 100;
+  const handleAddNumber = () => {
+    setNumber((prev) => {
+      const newNum = prev + 1;
+      return newNum;
+    });
+  };
+  const handleMinusNumber = () => {
+    setNumber((prev) => {
+      const newNum = prev - 1;
+      return newNum;
+    });
+  };
   return (
-    <View>
-      <Text style={{fontSize: 25,padding:5, color:"red", marginTop: 55}}>Hello subodh here we go our first app is build</Text>
-      <Text style={{fontSize: 15,padding:5}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</Text>
-      <CommonButton title={"Add to Cart"}/>
-      <CommonButton title={"Buy now"}/>
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <ScrollView
+        style={styles.wrapper}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.container}>
+          <Text style={styles.common}>React Native app</Text>
+          <Text style={styles.buildText}>Build no :{number}</Text>
+
+          <View style={styles.buttonWrapper}>
+            <CommonButton
+              title="Add Number"
+              handleChange={handleAddNumber}
+              theme="primary"
+            />
+            <CommonButton
+              title="Minus Number"
+              handleChange={handleMinusNumber}
+            />
+          </View>
+
+          <FormComponent />
+
+          {/* ✅ Wrap FlatListMap in a height-limited container */}
+          <View style={{ height: 360, overflow: 'scroll' }}>
+            <FlatListMap />
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
+{
+  /* <InputHandle name={name} setName={setName} /> */
+}
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+  },
+  common: {
+    fontSize: 30,
+    padding: 5,
+    color: 'black',
+    fontWeight: 700,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  contentContainer: {
+    paddingBottom: 7, // Space at the bottom for smooth scrolling
+  },
+  buildText: {
+    fontSize: 16,
+    padding: 5,
+    color: 'blue',
+    fontWeight: 600,
+    textAlign: 'right',
+    marginRight: 10,
+  },
+  buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
