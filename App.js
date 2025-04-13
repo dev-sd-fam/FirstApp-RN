@@ -1,5 +1,5 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
-import CommonButton from './Buttons/CommonButton';
+import CommonButton from './components/common/Buttons/CommonButton';
 
 export default function App() {
   return (
